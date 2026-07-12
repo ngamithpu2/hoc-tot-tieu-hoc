@@ -4,7 +4,7 @@ import path from "node:path";
 const sourcePath = path.resolve(
   "upload/khoa_hoc_4_kntt_giao_dien_benbella_arial(1).html",
 );
-const outputDir = path.resolve("data/courses/khoa-hoc-4-kntt");
+const outputDir = path.resolve("data/courses/khoa-hoc-4-kntt/versions/v1");
 const source = fs.readFileSync(sourcePath, "utf8");
 
 function extractJson(name, until) {

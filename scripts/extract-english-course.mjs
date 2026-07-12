@@ -3,7 +3,7 @@ import path from "node:path";
 import vm from "node:vm";
 
 const sourcePath = path.resolve("upload/BenBella_UNIFIED(1).html");
-const outputDir = path.resolve("data/courses/tieng-anh-4-ben-bella");
+const outputDir = path.resolve("data/courses/tieng-anh-4-ben-bella/versions/v1");
 const source = fs.readFileSync(sourcePath, "utf8");
 
 const cardsMatch = source.match(/const CARDS = (\[.*?\]);\n/s);

@@ -1,0 +1,219 @@
+[
+  {
+    "chapterId": "CD1",
+    "chapter": "Chất",
+    "lesson": 1,
+    "title": "Tính chất của nước và nước với cuộc sống",
+    "page": 5
+  },
+  {
+    "chapterId": "CD1",
+    "chapter": "Chất",
+    "lesson": 2,
+    "title": "Sự chuyển thể của nước và vòng tuần hoàn của nước trong tự nhiên",
+    "page": 9
+  },
+  {
+    "chapterId": "CD1",
+    "chapter": "Chất",
+    "lesson": 3,
+    "title": "Sự ô nhiễm và bảo vệ nguồn nước. Một số cách làm sạch nước",
+    "page": 13
+  },
+  {
+    "chapterId": "CD1",
+    "chapter": "Chất",
+    "lesson": 4,
+    "title": "Không khí có ở đâu? Tính chất và thành phần của không khí",
+    "page": 17
+  },
+  {
+    "chapterId": "CD1",
+    "chapter": "Chất",
+    "lesson": 5,
+    "title": "Vai trò của không khí và bảo vệ bầu không khí trong lành",
+    "page": 21
+  },
+  {
+    "chapterId": "CD1",
+    "chapter": "Chất",
+    "lesson": 6,
+    "title": "Gió, bão và phòng chống bão",
+    "page": 25
+  },
+  {
+    "chapterId": "CD1",
+    "chapter": "Chất",
+    "lesson": 7,
+    "title": "Ôn tập chủ đề Chất",
+    "page": 29
+  },
+  {
+    "chapterId": "CD2",
+    "chapter": "Năng lượng",
+    "lesson": 8,
+    "title": "Ánh sáng và sự truyền ánh sáng",
+    "page": 31
+  },
+  {
+    "chapterId": "CD2",
+    "chapter": "Năng lượng",
+    "lesson": 9,
+    "title": "Vai trò của ánh sáng",
+    "page": 35
+  },
+  {
+    "chapterId": "CD2",
+    "chapter": "Năng lượng",
+    "lesson": 10,
+    "title": "Âm thanh và sự truyền âm thanh",
+    "page": 39
+  },
+  {
+    "chapterId": "CD2",
+    "chapter": "Năng lượng",
+    "lesson": 11,
+    "title": "Âm thanh trong cuộc sống",
+    "page": 42
+  },
+  {
+    "chapterId": "CD2",
+    "chapter": "Năng lượng",
+    "lesson": 12,
+    "title": "Nhiệt độ và sự truyền nhiệt",
+    "page": 45
+  },
+  {
+    "chapterId": "CD2",
+    "chapter": "Năng lượng",
+    "lesson": 13,
+    "title": "Vật dẫn nhiệt tốt, vật dẫn nhiệt kém",
+    "page": 48
+  },
+  {
+    "chapterId": "CD2",
+    "chapter": "Năng lượng",
+    "lesson": 14,
+    "title": "Ôn tập chủ đề Năng lượng",
+    "page": 51
+  },
+  {
+    "chapterId": "CD3",
+    "chapter": "Thực vật và động vật",
+    "lesson": 15,
+    "title": "Thực vật cần gì để sống?",
+    "page": 53
+  },
+  {
+    "chapterId": "CD3",
+    "chapter": "Thực vật và động vật",
+    "lesson": 16,
+    "title": "Động vật cần gì để sống?",
+    "page": 59
+  },
+  {
+    "chapterId": "CD3",
+    "chapter": "Thực vật và động vật",
+    "lesson": 17,
+    "title": "Chăm sóc cây trồng, vật nuôi",
+    "page": 64
+  },
+  {
+    "chapterId": "CD3",
+    "chapter": "Thực vật và động vật",
+    "lesson": 18,
+    "title": "Ôn tập chủ đề Thực vật và động vật",
+    "page": 68
+  },
+  {
+    "chapterId": "CD4",
+    "chapter": "Nấm",
+    "lesson": 19,
+    "title": "Đặc điểm chung của nấm",
+    "page": 70
+  },
+  {
+    "chapterId": "CD4",
+    "chapter": "Nấm",
+    "lesson": 20,
+    "title": "Nấm ăn và nấm trong chế biến thực phẩm",
+    "page": 74
+  },
+  {
+    "chapterId": "CD4",
+    "chapter": "Nấm",
+    "lesson": 21,
+    "title": "Nấm gây hỏng thực phẩm và nấm độc",
+    "page": 78
+  },
+  {
+    "chapterId": "CD4",
+    "chapter": "Nấm",
+    "lesson": 22,
+    "title": "Ôn tập chủ đề Nấm",
+    "page": 82
+  },
+  {
+    "chapterId": "CD5",
+    "chapter": "Con người và sức khỏe",
+    "lesson": 23,
+    "title": "Vai trò của chất dinh dưỡng đối với cơ thể",
+    "page": 84
+  },
+  {
+    "chapterId": "CD5",
+    "chapter": "Con người và sức khỏe",
+    "lesson": 24,
+    "title": "Chế độ ăn uống cân bằng",
+    "page": 88
+  },
+  {
+    "chapterId": "CD5",
+    "chapter": "Con người và sức khỏe",
+    "lesson": 25,
+    "title": "Một số bệnh liên quan đến dinh dưỡng",
+    "page": 93
+  },
+  {
+    "chapterId": "CD5",
+    "chapter": "Con người và sức khỏe",
+    "lesson": 26,
+    "title": "Thực phẩm an toàn",
+    "page": 99
+  },
+  {
+    "chapterId": "CD5",
+    "chapter": "Con người và sức khỏe",
+    "lesson": 27,
+    "title": "Phòng tránh đuối nước",
+    "page": 103
+  },
+  {
+    "chapterId": "CD5",
+    "chapter": "Con người và sức khỏe",
+    "lesson": 28,
+    "title": "Ôn tập chủ đề Con người và sức khỏe",
+    "page": 107
+  },
+  {
+    "chapterId": "CD6",
+    "chapter": "Sinh vật và môi trường",
+    "lesson": 29,
+    "title": "Chuỗi thức ăn trong tự nhiên",
+    "page": 109
+  },
+  {
+    "chapterId": "CD6",
+    "chapter": "Sinh vật và môi trường",
+    "lesson": 30,
+    "title": "Vai trò của thực vật trong chuỗi thức ăn",
+    "page": 114
+  },
+  {
+    "chapterId": "CD6",
+    "chapter": "Sinh vật và môi trường",
+    "lesson": 31,
+    "title": "Ôn tập chủ đề Sinh vật và môi trường",
+    "page": 120
+  }
+]
