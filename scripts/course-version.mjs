@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import crypto from "node:crypto";
 
 const [, , command, slug, requestedVersion] = process.argv;
 if (!command || !slug) {
@@ -9,6 +10,9 @@ if (!command || !slug) {
 
 const courseDir = path.resolve("data/courses", slug);
 const indexPath = path.join(courseDir, "index.ts");
+const htmlAppPath = path.join(courseDir, "html-app.ts");
+const htmlVersionsPath = path.join(courseDir, "html-versions.json");
+const publicAppDir = path.resolve("public/course-apps", slug);
 if (!fs.existsSync(indexPath)) throw new Error(`Không tìm thấy khóa học: ${slug}`);
 
 function getActiveVersion() {
@@ -48,6 +52,15 @@ function validate(version) {
       throw new Error(`${question.id} có đáp án nhiều lựa chọn không hợp lệ`);
     }
   }
+  if (fs.existsSync(htmlVersionsPath)) {
+    const manifest = readJson(htmlVersionsPath);
+    const htmlVersion = manifest[version];
+    if (!htmlVersion) throw new Error(`Thiếu khai báo HTML cho ${slug}/${version}`);
+    const htmlPath = path.join(publicAppDir, version, htmlVersion.file);
+    if (!fs.existsSync(htmlPath)) throw new Error(`Thiếu ứng dụng HTML: ${htmlPath}`);
+    const sha256 = crypto.createHash("sha256").update(fs.readFileSync(htmlPath)).digest("hex");
+    if (sha256 !== htmlVersion.sha256) throw new Error(`HTML ${slug}/${version} đã bị thay đổi ngoài chủ đích`);
+  }
   console.log(`Hợp lệ: ${slug}/${version} · ${lessons.length} bài/chặng · ${questions.length} câu/mục.`);
 }
 
@@ -66,6 +79,14 @@ if (command === "validate") {
   const meta = readJson(metaPath);
   meta.version = Number(requestedVersion.slice(1));
   fs.writeFileSync(metaPath, `${JSON.stringify(meta, null, 2)}\n`);
+  if (fs.existsSync(htmlVersionsPath)) {
+    const sourceHtmlDir = path.join(publicAppDir, activeVersion);
+    const targetHtmlDir = path.join(publicAppDir, requestedVersion);
+    fs.cpSync(sourceHtmlDir, targetHtmlDir, { recursive: true, errorOnExist: true });
+    const manifest = readJson(htmlVersionsPath);
+    manifest[requestedVersion] = { ...manifest[activeVersion], source: `Sao chép từ ${activeVersion}` };
+    fs.writeFileSync(htmlVersionsPath, `${JSON.stringify(manifest, null, 2)}\n`);
+  }
   console.log(`Đã tạo ${slug}/${requestedVersion} từ ${activeVersion}. Phiên bản đang chạy chưa thay đổi.`);
 } else if (command === "activate") {
   if (!requestedVersion) throw new Error("Cần chỉ định phiên bản muốn kích hoạt");
@@ -74,6 +95,11 @@ if (command === "validate") {
     .replace(/ACTIVE_VERSION = "v\d+"/, `ACTIVE_VERSION = "${requestedVersion}"`)
     .replaceAll(`/versions/${activeVersion}/`, `/versions/${requestedVersion}/`);
   fs.writeFileSync(indexPath, source);
+  if (fs.existsSync(htmlAppPath)) {
+    const htmlSource = fs.readFileSync(htmlAppPath, "utf8")
+      .replace(/ACTIVE_HTML_VERSION = "v\d+"/, `ACTIVE_HTML_VERSION = "${requestedVersion}"`);
+    fs.writeFileSync(htmlAppPath, htmlSource);
+  }
   console.log(`Đã chuyển riêng ${slug}: ${activeVersion} → ${requestedVersion}.`);
 } else {
   throw new Error(`Lệnh không hợp lệ: ${command}`);

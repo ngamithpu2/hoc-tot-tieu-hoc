@@ -12,5 +12,7 @@ export function getCourse(slug: string) {
 }
 
 export function getCourseSlugs() {
-  return Object.keys(courses);
+  return Object.values(courses)
+    .filter((course) => course.meta.renderMode !== "exact-html")
+    .map((course) => course.meta.slug);
 }

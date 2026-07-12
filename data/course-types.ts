@@ -16,6 +16,7 @@ export interface CourseMeta {
   chapterLabel?: string;
   itemLabel?: string;
   defaultDifficulty?: string;
+  renderMode?: "generic" | "exact-html";
 }
 
 export interface Lesson {

@@ -12,5 +12,6 @@
   "lessonLabel": "Chặng",
   "chapterLabel": "Loạt",
   "itemLabel": "Từ/cụm từ",
-  "defaultDifficulty": "Nền tảng"
+  "defaultDifficulty": "Nền tảng",
+  "renderMode": "exact-html"
 }
