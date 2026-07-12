@@ -5,3 +5,4 @@ export default defineConfig([
   ...nextVitals,
   globalIgnores([".next/**", "out/**", "build/**"]),
 ]);
+

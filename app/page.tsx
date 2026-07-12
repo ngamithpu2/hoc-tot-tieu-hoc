@@ -1,46 +1,12 @@
 "use client";
 
 import { useMemo, useState } from "react";
-
-const courses = [
-  {
-    grade: "Lớp 1",
-    subject: "Toán",
-    title: "Nền tảng Toán tư duy lớp 1",
-    description: "Làm quen số học, hình học và tư duy giải quyết vấn đề qua các chặng ngắn.",
-    lessons: 42,
-    price: "299.000đ",
-    icon: "✦",
-    tone: "mint",
-  },
-  {
-    grade: "Lớp 3",
-    subject: "Tiếng Việt",
-    title: "Tiếng Việt vững vàng lớp 3",
-    description: "Đọc hiểu, chính tả, từ và câu được hệ thống theo từng chủ điểm trong sách.",
-    lessons: 48,
-    price: "329.000đ",
-    icon: "Aa",
-    tone: "coral",
-  },
-  {
-    grade: "Lớp 4",
-    subject: "Lịch sử & Địa lí",
-    title: "Chinh phục Lịch sử & Địa lí 4",
-    description: "Ghi nhớ kiến thức cốt lõi, luyện đọc bản đồ, bảng số liệu và dòng thời gian.",
-    lessons: 56,
-    price: "349.000đ",
-    icon: "◎",
-    tone: "violet",
-  },
-];
+import { courseCatalog as courses } from "@/data/course-catalog";
 
 const gradeOptions = ["Tất cả", "Lớp 1", "Lớp 2", "Lớp 3", "Lớp 4", "Lớp 5"];
 
 export default function Home() {
   const [grade, setGrade] = useState("Tất cả");
-  const [cart, setCart] = useState<string[]>([]);
-  const [notice, setNotice] = useState("");
   const [loginOpen, setLoginOpen] = useState(false);
   const [answer, setAnswer] = useState<number | null>(null);
 
@@ -48,12 +14,6 @@ export default function Home() {
     () => (grade === "Tất cả" ? courses : courses.filter((course) => course.grade === grade)),
     [grade],
   );
-
-  function addToCart(title: string) {
-    setCart((current) => (current.includes(title) ? current : [...current, title]));
-    setNotice("Đã thêm khóa học vào giỏ hàng");
-    window.setTimeout(() => setNotice(""), 2200);
-  }
 
   return (
     <main>
@@ -69,8 +29,8 @@ export default function Home() {
           <a href="#parents">Dành cho phụ huynh</a>
         </nav>
         <div className="header-actions">
-          <button className="cart-button" aria-label={`Giỏ hàng có ${cart.length} khóa học`}>
-            Giỏ hàng <span>{cart.length}</span>
+          <button className="cart-button" aria-label="Giỏ hàng chưa có khóa học">
+            Giỏ hàng <span>0</span>
           </button>
           <button className="button button-small" onClick={() => setLoginOpen(true)}>Đăng nhập</button>
         </div>
@@ -86,8 +46,8 @@ export default function Home() {
             <a className="text-link" href="#trial"><span className="play">▶</span> Học thử miễn phí</a>
           </div>
           <div className="trust-row">
-            <div className="avatars" aria-hidden="true"><span>AN</span><span>MY</span><span>BI</span><span>+</span></div>
-            <p><b>1.200+ phụ huynh</b><br/>đã đồng hành cùng con</p>
+            <div className="avatars" aria-hidden="true"><span>31</span><span>6</span><span>4</span></div>
+            <p><b>Khoa học lớp 4</b><br/>31 bài · 6 chủ đề · 4 dạng câu hỏi</p>
           </div>
         </div>
 
@@ -136,8 +96,8 @@ export default function Home() {
               </div>
               <div className="course-body">
                 <p>{course.description}</p>
-                <div className="course-meta"><span>▤ {course.lessons} bài học</span><span>∞ Học lại không giới hạn</span></div>
-                <div className="course-footer"><strong>{course.price}</strong><button onClick={() => addToCart(course.title)}>Thêm vào giỏ →</button></div>
+                <div className="course-meta"><span>▤ {course.lessons} bài học</span><span>✎ {course.questions} câu hỏi</span></div>
+                <div className="course-footer"><strong>{course.status}</strong><a href={`/khoa-hoc/${course.slug}`}>Bắt đầu học →</a></div>
               </div>
             </article>
           )) : <div className="empty-state">Khóa học {grade} đang được hoàn thiện. Sếp có thể tiếp tục khám phá các lớp khác.</div>}
@@ -158,19 +118,19 @@ export default function Home() {
         <div className="trial-copy">
           <span className="section-kicker">HỌC THỬ NGAY</span>
           <h2>Con thử sức với một câu hỏi nhé!</h2>
-          <p>Ví dụ từ khóa “Chinh phục Lịch sử & Địa lí 4”.</p>
+          <p>Ví dụ từ khóa “Khoa học 4 · Kết nối tri thức”.</p>
           <div className="mini-report"><span>💡</span><div><b>Không cần đăng nhập</b><small>Nhận kết quả và lời giải ngay sau khi trả lời</small></div></div>
         </div>
         <div className="quiz-card">
-          <div className="quiz-head"><span>CÂU 1/5</span><span>Lịch sử & Địa lí 4</span></div>
+          <div className="quiz-head"><span>CÂU HỌC THỬ</span><span>Khoa học 4</span></div>
           <div className="quiz-progress"><span/></div>
-          <h3>Trên bản đồ, phương hướng nào thường được thể hiện ở phía trên?</h3>
+          <h3>Thực vật cần những yếu tố nào để sống và phát triển?</h3>
           <div className="answers">
-            {["A. Hướng Đông", "B. Hướng Tây", "C. Hướng Nam", "D. Hướng Bắc"].map((item, index) => (
-              <button key={item} onClick={() => setAnswer(index)} className={answer === index ? (index === 3 ? "correct" : "wrong") : ""}>{item}<span>{answer === index ? (index === 3 ? "✓" : "×") : ""}</span></button>
+            {["A. Chỉ cần nước", "B. Nước, không khí, ánh sáng và chất khoáng", "C. Chỉ cần ánh sáng", "D. Chỉ cần đất"].map((item, index) => (
+              <button key={item} onClick={() => setAnswer(index)} className={answer === index ? (index === 1 ? "correct" : "wrong") : ""}>{item}<span>{answer === index ? (index === 1 ? "✓" : "×") : ""}</span></button>
             ))}
           </div>
-          {answer !== null && <div className={answer === 3 ? "feedback good" : "feedback"}>{answer === 3 ? "Chính xác! Phía trên bản đồ thường thể hiện hướng Bắc." : "Chưa đúng. Con hãy nhớ ký hiệu mũi tên chỉ hướng Bắc trên bản đồ nhé."}</div>}
+          {answer !== null && <div className={answer === 1 ? "feedback good" : "feedback"}>{answer === 1 ? "Chính xác! Cây cần đủ nước, không khí, ánh sáng và chất khoáng." : "Chưa đúng. Con hãy nhớ các điều kiện cần thiết để thực vật sống và phát triển."}</div>}
         </div>
       </section>
 
@@ -183,7 +143,6 @@ export default function Home() {
 
       <footer><a className="brand footer-brand" href="#top"><span className="brand-mark">H</span><span>Học Tốt <b>Tiểu Học</b></span></a><p>Học chắc từng chặng. Tiến bộ mỗi ngày.</p><div><a href="#courses">Khóa học</a><a href="#trial">Học thử</a><a href="#parents">Phụ huynh</a></div><small>© 2026 Học Tốt Tiểu Học</small></footer>
 
-      {notice && <div className="toast" role="status">✓ {notice}</div>}
       {loginOpen && <div className="modal-backdrop" role="presentation" onMouseDown={() => setLoginOpen(false)}><div className="modal" role="dialog" aria-modal="true" aria-labelledby="login-title" onMouseDown={(event) => event.stopPropagation()}><button className="modal-close" aria-label="Đóng" onClick={() => setLoginOpen(false)}>×</button><span className="modal-logo">H</span><h2 id="login-title">Chào mừng quay lại</h2><p>Đăng nhập để quản lý khóa học và theo dõi hành trình của con.</p><label>Email<input type="email" placeholder="phuhuynh@email.com"/></label><label>Mật khẩu<input type="password" placeholder="••••••••"/></label><button className="button modal-submit" onClick={() => setLoginOpen(false)}>Đăng nhập</button><small>Bản thử nghiệm giao diện — kết nối tài khoản Supabase ở bước tiếp theo.</small></div></div>}
     </main>
   );

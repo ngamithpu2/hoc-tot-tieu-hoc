@@ -14,3 +14,4 @@ Mở `http://localhost:3000`.
 ## Triển khai
 
 Nhập repository này vào Vercel. Framework Preset chọn **Next.js** và giữ nguyên các thiết lập build mặc định.
+
