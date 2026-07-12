@@ -1,0 +1,16 @@
+{
+  "id": "english-4-ben-bella",
+  "slug": "tieng-anh-4-ben-bella",
+  "subject": "Tiếng Anh",
+  "grade": 4,
+  "title": "Tiếng Anh lớp 4 · Ben & Bella",
+  "shortTitle": "Tiếng Anh 4",
+  "book": "Ben & Bella · Kho từ vựng theo trình độ",
+  "description": "Học từ và cụm từ qua ngữ cảnh, chia rõ nền tảng A1–A2, mở rộng A2–B1 và nâng cao B1–B2.",
+  "version": 1,
+  "sourceLabel": "Tiếng Anh 4 · Ben & Bella",
+  "lessonLabel": "Chặng",
+  "chapterLabel": "Loạt",
+  "itemLabel": "Từ/cụm từ",
+  "defaultDifficulty": "Nền tảng"
+}

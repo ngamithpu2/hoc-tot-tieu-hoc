@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import type { CourseData, Difficulty, Question } from "@/data/course-types";
+import type { CourseData, Question } from "@/data/course-types";
 import styles from "./CourseLearningApp.module.css";
 
 type View = "overview" | "lessons" | "topics" | "skills" | "exam" | "review" | "flashcards" | "quiz" | "result";
@@ -63,7 +63,7 @@ export default function CourseLearningApp({ course }: { course: CourseData }) {
   const [quizTitle, setQuizTitle] = useState("");
   const [result, setResult] = useState({ score: 0, total: 0 });
   const [examChapter, setExamChapter] = useState("all");
-  const [examDifficulty, setExamDifficulty] = useState<"mix" | Difficulty>("mix");
+  const [examDifficulty, setExamDifficulty] = useState(meta.defaultDifficulty ?? "mix");
   const [examCount, setExamCount] = useState(10);
   const [flashIndex, setFlashIndex] = useState(0);
   const [flashBack, setFlashBack] = useState(false);
@@ -85,6 +85,7 @@ export default function CourseLearningApp({ course }: { course: CourseData }) {
     [lessons],
   );
   const skills = useMemo(() => [...new Set(questions.map((item) => item.skill))].sort(), [questions]);
+  const difficulties = useMemo(() => [...new Set(questions.map((item) => item.difficulty))], [questions]);
   const currentQuestion = queue[questionIndex];
   const currentOptions = useMemo(
     () => (currentQuestion?.options ? shuffle(currentQuestion.options) : []),
@@ -163,11 +164,17 @@ export default function CourseLearningApp({ course }: { course: CourseData }) {
   );
   const wrongQuestions = questions.filter((question) => progress.wrong.includes(question.id));
   const flashQuestion = questions[flashIndex % questions.length];
+  const defaultQuestions = meta.defaultDifficulty
+    ? questions.filter((question) => question.difficulty === meta.defaultDifficulty)
+    : questions;
+  const lessonLabel = meta.lessonLabel ?? "Bài";
+  const chapterLabel = meta.chapterLabel ?? "Chủ đề";
+  const itemLabel = meta.itemLabel ?? "Câu hỏi";
 
   const navItems: { id: View; label: string; icon: string }[] = [
     { id: "overview", label: "Tổng quan", icon: "⌂" },
-    { id: "lessons", label: "Theo bài", icon: "▤" },
-    { id: "topics", label: "Chủ đề", icon: "◫" },
+    { id: "lessons", label: `Theo ${lessonLabel.toLowerCase()}`, icon: "▤" },
+    { id: "topics", label: chapterLabel, icon: "◫" },
     { id: "skills", label: "Kỹ năng", icon: "◎" },
     { id: "exam", label: "Kiểm tra", icon: "✓" },
     { id: "review", label: "Ôn câu sai", icon: "↻" },
@@ -179,7 +186,7 @@ export default function CourseLearningApp({ course }: { course: CourseData }) {
       <aside className={styles.sidebar}>
         <Link href="/" className={styles.back}>← Về trang chủ</Link>
         <div className={styles.courseBrand}>
-          <span>Khoa học</span><strong>4</strong>
+          <span>{meta.subject}</span><strong>{meta.grade}</strong>
           <small>{meta.book}</small>
         </div>
         <nav className={styles.nav} aria-label="Điều hướng khóa học">
@@ -208,13 +215,13 @@ export default function CourseLearningApp({ course }: { course: CourseData }) {
               <div>
                 <span className={styles.kicker}>HỌC HIỂU · LUYỆN ĐÚNG TRỌNG TÂM</span>
                 <h2>{meta.title}</h2><p>{meta.description}</p>
-                <button className={styles.primary} onClick={() => startQuiz(questions, "Luyện nhanh 10 câu", 10)}>Bắt đầu 10 câu →</button>
+                <button className={styles.primary} onClick={() => startQuiz(defaultQuestions, "Luyện nhanh 10 câu", 10)}>Bắt đầu 10 câu →</button>
               </div>
               <div className={styles.heroStats}>
-                <article><strong>31</strong><span>Bài học</span></article>
-                <article><strong>6</strong><span>Chủ đề</span></article>
-                <article><strong>699</strong><span>Câu hỏi</span></article>
-                <article><strong>4</strong><span>Dạng bài</span></article>
+                <article><strong>{lessons.length}</strong><span>{lessonLabel}</span></article>
+                <article><strong>{chapters.length}</strong><span>{chapterLabel}</span></article>
+                <article><strong>{questions.length}</strong><span>{itemLabel}</span></article>
+                <article><strong>{new Set(questions.map((item) => item.type)).size}</strong><span>Dạng bài</span></article>
               </div>
             </div>
             <div className={styles.statsRow}>
@@ -230,31 +237,31 @@ export default function CourseLearningApp({ course }: { course: CourseData }) {
 
         {view === "lessons" && (
           <section className={styles.section}>
-            <div className={styles.pageHeading}><div><span>31 BÀI HỌC</span><h1>Luyện theo bài</h1></div></div>
+            <div className={styles.pageHeading}><div><span>{lessons.length} {lessonLabel.toUpperCase()}</span><h1>Luyện theo {lessonLabel.toLowerCase()}</h1></div></div>
             <input className={styles.search} value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Tìm tên bài hoặc chủ đề…" />
             <div className={styles.cardGrid}>{filteredLessons.map((lesson) => {
               const pool = questions.filter((question) => question.lesson === lesson.lesson);
-              return <button className={styles.lessonCard} key={lesson.lesson} onClick={() => startQuiz(pool, `Bài ${lesson.lesson}: ${lesson.title}`)}>
-                <small>{lesson.chapter}</small><h3>Bài {lesson.lesson}. {lesson.title}</h3><p>Trang {lesson.page} · {pool.length} câu</p>
+              return <button className={styles.lessonCard} key={lesson.lesson} onClick={() => startQuiz(pool, `${lessonLabel} ${lesson.lesson}: ${lesson.title}`)}>
+                <small>{lesson.chapter}</small><h3>{lessonLabel} {lesson.lesson}. {lesson.title}</h3><p>{lesson.page ? `Trang ${lesson.page} · ` : ""}{pool.length} {itemLabel.toLowerCase()}</p>
               </button>;
             })}</div>
           </section>
         )}
 
         {view === "topics" && (
-          <section className={styles.section}><div className={styles.pageHeading}><div><span>6 CHỦ ĐỀ</span><h1>Luyện theo chủ đề</h1></div></div>
+          <section className={styles.section}><div className={styles.pageHeading}><div><span>{chapters.length} {chapterLabel.toUpperCase()}</span><h1>Luyện theo {chapterLabel.toLowerCase()}</h1></div></div>
             <div className={styles.cardGrid}>{chapters.map((chapter) => {
               const pool = questions.filter((question) => question.chapterId === chapter.chapterId);
-              return <button className={styles.lessonCard} key={chapter.chapterId} onClick={() => startQuiz(pool, `Chủ đề: ${chapter.chapter}`)}><small>{chapter.chapterId}</small><h3>{chapter.chapter}</h3><p>{lessons.filter((lesson) => lesson.chapterId === chapter.chapterId).length} bài · {pool.length} câu</p></button>;
+              return <button className={styles.lessonCard} key={chapter.chapterId} onClick={() => startQuiz(pool, `${chapterLabel}: ${chapter.chapter}`)}><small>{chapter.chapterId}</small><h3>{chapter.chapter}</h3><p>{lessons.filter((lesson) => lesson.chapterId === chapter.chapterId).length} {lessonLabel.toLowerCase()} · {pool.length} {itemLabel.toLowerCase()}</p></button>;
             })}</div>
           </section>
         )}
 
         {view === "skills" && (
-          <section className={styles.section}><div className={styles.pageHeading}><div><span>8 NHÓM KỸ NĂNG</span><h1>Luyện theo kỹ năng</h1></div></div>
+          <section className={styles.section}><div className={styles.pageHeading}><div><span>{skills.length} NHÓM KỸ NĂNG</span><h1>Luyện theo kỹ năng</h1></div></div>
             <div className={styles.cardGrid}>{skills.map((skill) => {
               const pool = questions.filter((question) => question.skill === skill);
-              return <button className={styles.lessonCard} key={skill} onClick={() => startQuiz(pool, `Kỹ năng: ${skill}`)}><small>KỸ NĂNG</small><h3>{skill}</h3><p>{pool.length} câu hỏi</p></button>;
+              return <button className={styles.lessonCard} key={skill} onClick={() => startQuiz(pool, `Kỹ năng: ${skill}`)}><small>KỸ NĂNG</small><h3>{skill}</h3><p>{pool.length} {itemLabel.toLowerCase()}</p></button>;
             })}</div>
           </section>
         )}
@@ -262,7 +269,7 @@ export default function CourseLearningApp({ course }: { course: CourseData }) {
         {view === "exam" && (
           <section className={styles.section}><div className={styles.pageHeading}><div><span>TẠO ĐỀ LINH HOẠT</span><h1>Đề kiểm tra</h1></div></div>
             <div className={styles.formCard}><label>Phạm vi<select value={examChapter} onChange={(event) => setExamChapter(event.target.value)}><option value="all">Tất cả chủ đề</option>{chapters.map((item) => <option key={item.chapterId} value={item.chapterId}>{item.chapter}</option>)}</select></label>
-              <label>Mức độ<select value={examDifficulty} onChange={(event) => setExamDifficulty(event.target.value as "mix" | Difficulty)}><option value="mix">Trộn mức độ</option><option>Cơ bản</option><option>Khá</option><option>Giỏi</option></select></label>
+              <label>Mức độ<select value={examDifficulty} onChange={(event) => setExamDifficulty(event.target.value)}><option value="mix">Trộn mức độ</option>{difficulties.map((difficulty) => <option key={difficulty} value={difficulty}>{difficulty}</option>)}</select></label>
               <label>Số câu<select value={examCount} onChange={(event) => setExamCount(Number(event.target.value))}><option>10</option><option>15</option><option>20</option><option>30</option></select></label>
               <button className={styles.primary} onClick={startExam}>Bắt đầu làm bài</button>
             </div>
@@ -277,7 +284,7 @@ export default function CourseLearningApp({ course }: { course: CourseData }) {
 
         {view === "flashcards" && flashQuestion && (
           <section className={styles.section}><div className={styles.pageHeading}><div><span>GHI NHỚ NHANH</span><h1>Flashcards</h1></div></div>
-            <button className={styles.flashcard} onClick={() => setFlashBack((value) => !value)}>{flashBack ? <><small>ĐÁP ÁN</small><h2>{Array.isArray(flashQuestion.correct) ? flashQuestion.correct.join("; ") : flashQuestion.correct}</h2><p>{flashQuestion.explanation}</p></> : <><small>BÀI {flashQuestion.lesson}</small><h2>{flashQuestion.question}</h2><p>Bấm vào thẻ để xem đáp án</p></>}</button>
+            <button className={styles.flashcard} onClick={() => setFlashBack((value) => !value)}>{flashBack ? <><small>ĐÁP ÁN</small><h2>{Array.isArray(flashQuestion.correct) ? flashQuestion.correct.join("; ") : flashQuestion.correct}</h2><p>{flashQuestion.explanation}</p></> : <><small>{lessonLabel.toUpperCase()} {flashQuestion.lesson}</small><h2>{flashQuestion.term ?? flashQuestion.question}</h2>{flashQuestion.meaning ? <p>Nghĩa của từ/cụm từ này là gì?</p> : <p>Bấm vào thẻ để xem đáp án</p>}</>}</button>
             <div className={styles.flashActions}><button onClick={() => { setFlashIndex((value) => (value - 1 + questions.length) % questions.length); setFlashBack(false); }}>← Trước</button><span>{flashIndex + 1}/{questions.length}</span><button onClick={() => { setFlashIndex((value) => (value + 1) % questions.length); setFlashBack(false); }}>Tiếp →</button></div>
           </section>
         )}

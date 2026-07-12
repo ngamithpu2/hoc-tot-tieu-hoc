@@ -1,5 +1,5 @@
 export type QuestionType = "mcq" | "tf" | "multi" | "fill";
-export type Difficulty = "Cơ bản" | "Khá" | "Giỏi";
+export type Difficulty = string;
 
 export interface CourseMeta {
   id: string;
@@ -12,6 +12,10 @@ export interface CourseMeta {
   description: string;
   version: number;
   sourceLabel: string;
+  lessonLabel?: string;
+  chapterLabel?: string;
+  itemLabel?: string;
+  defaultDifficulty?: string;
 }
 
 export interface Lesson {
@@ -19,7 +23,8 @@ export interface Lesson {
   chapter: string;
   lesson: number;
   title: string;
-  page: number;
+  page?: number;
+  level?: string;
 }
 
 export interface Question {
@@ -27,7 +32,7 @@ export interface Question {
   chapterId: string;
   chapter: string;
   lesson: number;
-  page: number;
+  page?: number;
   type: QuestionType;
   question: string;
   options: string[];
@@ -36,12 +41,30 @@ export interface Question {
   explanation: string;
   difficulty: Difficulty;
   skill: string;
+  level?: string;
+  term?: string;
+  meaning?: string;
+  example?: string;
+}
+
+export interface VocabularyCard {
+  id: number;
+  word: string;
+  meaning: string;
+  example: string;
+  function: string;
+  series: number;
+  tap: number;
+  level: string;
+  type: "word" | "phrase";
+  pos: string;
 }
 
 export interface CourseData {
   meta: CourseMeta;
   lessons: Lesson[];
   questions: Question[];
+  vocabulary?: VocabularyCard[];
 }
 
 export interface CourseCatalogItem {
