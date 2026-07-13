@@ -1,0 +1,16 @@
+{
+  "id": "vietnamese-4-kntt-volume-1",
+  "slug": "tieng-viet-4-kntt-tap-1",
+  "subject": "Tiếng Việt",
+  "grade": 4,
+  "title": "Tiếng Việt lớp 4 · Tập 1",
+  "shortTitle": "Tiếng Việt 4 · Tập 1",
+  "book": "Kết nối tri thức với cuộc sống",
+  "description": "32 bài học, 4 chủ điểm và 869 câu hỏi cơ bản – nâng cao, có giải thích và lưu tiến độ riêng.",
+  "version": 2,
+  "sourceLabel": "Tiếng Việt 4 · Kết nối tri thức · Tập 1",
+  "lessonLabel": "Bài",
+  "chapterLabel": "Chủ điểm",
+  "itemLabel": "Câu hỏi",
+  "renderMode": "exact-html"
+}

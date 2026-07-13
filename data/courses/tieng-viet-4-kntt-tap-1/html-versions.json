@@ -3,5 +3,10 @@
     "file": "index.html",
     "sha256": "f4c35abf9df6e345eca8eed439dd1b522595335692c2b5186f3286083786fcdd",
     "source": "tieng_viet_4_tap_1_web_khong_sidebar_FIXED.html + chuẩn hóa Arial"
+  },
+  "v2": {
+    "file": "index.html",
+    "sha256": "e11681b5ae8500b74d8a3fee2aaec1a030eca2a9a81c3d280414fb99f4b6f18b",
+    "source": "Tập 1 v1 + giao diện EduBee đồng bộ, tối giản"
   }
 }
