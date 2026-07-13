@@ -46,8 +46,8 @@ export default function Home() {
             <a className="text-link" href="#trial"><span className="play">▶</span> Học thử miễn phí</a>
           </div>
           <div className="trust-row">
-            <div className="avatars" aria-hidden="true"><span>KH</span><span>EN</span><span>4</span></div>
-            <p><b>Đã có 2 khóa học lớp 4</b><br/>Khoa học và Tiếng Anh · dữ liệu luyện tập đầy đủ</p>
+            <div className="avatars" aria-hidden="true"><span>TV</span><span>KH</span><span>EN</span></div>
+            <p><b>Đã có 3 khóa học lớp 4</b><br/>Tiếng Việt, Khoa học và Tiếng Anh</p>
           </div>
         </div>
 
@@ -97,7 +97,7 @@ export default function Home() {
               <div className="course-body">
                 <p>{course.description}</p>
                 <div className="course-meta"><span>▤ {course.lessons} bài học</span><span>✎ {course.questions} câu hỏi</span></div>
-                <div className="course-footer"><strong>{course.status}</strong><a href={`/khoa-hoc/${course.slug}`}>Bắt đầu học →</a></div>
+                <div className="course-footer"><strong>{course.status}</strong><a href={`/lop-4/khoa-hoc/${course.slug}`}>Bắt đầu học →</a></div>
               </div>
             </article>
           )) : <div className="empty-state">Khóa học {grade} đang được hoàn thiện. Sếp có thể tiếp tục khám phá các lớp khác.</div>}
