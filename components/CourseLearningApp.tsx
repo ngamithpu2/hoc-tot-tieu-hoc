@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import type { CourseData, Question } from "@/data/course-types";
-import styles from "./CourseLearningApp.module.css";
+import legacyStyles from "./CourseLearningApp.module.css";
+import modernStyles from "./CourseLearningAppModern.module.css";
 
 type View = "overview" | "lessons" | "topics" | "skills" | "exam" | "review" | "flashcards" | "quiz" | "result";
 type Progress = { total: number; right: number; wrong: string[] };
@@ -51,6 +52,9 @@ function isCorrect(question: Question, answer: string | string[]) {
 
 export default function CourseLearningApp({ course }: { course: CourseData }) {
   const { meta, lessons, questions } = course;
+  // Khoa học 4 v1 giữ nguyên giao diện cũ để có thể hoàn tác độc lập.
+  // Từ v2 trở đi dùng hệ giao diện hiện đại, đồng bộ với Tiếng Anh 4.
+  const styles = meta.version >= 2 ? modernStyles : legacyStyles;
   const storageKey = `edubee-progress:${meta.id}:v${meta.version}`;
   const [view, setView] = useState<View>("overview");
   const [progress, setProgress] = useState<Progress>(EMPTY_PROGRESS);
