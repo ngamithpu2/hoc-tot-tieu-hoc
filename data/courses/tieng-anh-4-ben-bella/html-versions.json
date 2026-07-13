@@ -8,5 +8,10 @@
     "file": "index.html",
     "sha256": "d4f4c4cf9fdf78c9f1a0e9f35cbd775255b804d7542aaca532db08937d714343",
     "source": "BenBella v1 + giao diện kiểm tra hiện đại"
+  },
+  "v3": {
+    "file": "index.html",
+    "sha256": "600721856ddd8780d360b80b8e6ca40a43d28135f530ad48c5d6be90665d1a35",
+    "source": "BenBella v2 + lộ trình series compact"
   }
 }
