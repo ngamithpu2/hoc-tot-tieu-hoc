@@ -97,7 +97,7 @@ export default function Home() {
               <div className="course-body">
                 <p>{course.description}</p>
                 <div className="course-meta"><span>▤ {course.lessons} bài học</span><span>✎ {course.questions} câu hỏi</span></div>
-                <div className="course-footer"><strong>{course.status}</strong><a href={`/lop-4/khoa-hoc/${course.slug}`}>Bắt đầu học →</a></div>
+                <div className="course-footer"><strong>{course.status}</strong><a href={`/khoa-hoc/${course.slug}`}>Bắt đầu học →</a></div>
               </div>
             </article>
           )) : <div className="empty-state">Khóa học {grade} đang được hoàn thiện. Sếp có thể tiếp tục khám phá các lớp khác.</div>}
