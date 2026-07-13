@@ -3,5 +3,10 @@
     "file": "index.html",
     "sha256": "291d033ef60e831aae8b2be9aaa1dcd1c3e54b65ed8484584f179517b7c47fed",
     "source": "BenBella_UNIFIED(2).html"
+  },
+  "v2": {
+    "file": "index.html",
+    "sha256": "d4f4c4cf9fdf78c9f1a0e9f35cbd775255b804d7542aaca532db08937d714343",
+    "source": "BenBella v1 + giao diện kiểm tra hiện đại"
   }
 }
