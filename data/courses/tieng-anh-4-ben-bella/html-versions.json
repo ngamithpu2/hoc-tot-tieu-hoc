@@ -18,5 +18,10 @@
     "file": "index.html",
     "sha256": "def417992e07995df350f9b501ac99e6b7125d03e63e020c63d84472c167b409",
     "source": "BenBella v3 + sửa nút Luyện thẻ khởi tạo phiên học"
+  },
+  "v5": {
+    "file": "index.html",
+    "sha256": "b7b8ed9ed2d3d5ea0bc8dffc05dda0d73b6b2001a3a626ea2bbad78901d40818",
+    "source": "BenBella_UNIFIED_ANKI_FIXED_V3_UI_FIXED(1).html"
   }
 }
